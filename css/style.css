@@ -1,63 +1,114 @@
+/* style.css */
 body {
-    background-color: #f8f9fa;
+    margin: 0;
+    font-family: 'Nunito', sans-serif;
+    background: linear-gradient(to bottom, #ffe3ec, #fff6f0);
+    color: #333;
+    text-align: center;
   }
   
-  .box-card {
-    cursor: pointer;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    border-radius: 1rem;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  header {
+    background-color: #ffd2dc;
+    padding: 1.5rem;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
   }
-  .box-card:hover,
-  .box-card.selected {
-    transform: translateY(-10px);
-    box-shadow: 0 8px 25px rgba(255, 111, 97, 0.5);
-    border: 2.5px solid #ff6f61;
+  
+  header h1 {
+    margin: 0;
+    font-size: 2.5rem;
+    color: #ff4d6d;
   }
-  .open-btn {
-    width: 180px;
-    height: 180px;
-    background: url('../assets/images/open-box-icon.png') no-repeat center center;
-    background-size: 90%;
-    border-radius: 1.5rem;
+  
+  section {
+    margin: 2rem auto;
+    max-width: 900px;
+    padding: 1rem;
+    background: #fff;
+    border-radius: 20px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+  }
+  
+  h2 {
+    color: #ff6699;
+    margin-bottom: 1rem;
+  }
+  
+  .series-list {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    flex-wrap: wrap;
+  }
+  
+  .series-list button {
+    background: #ffe9f0;
     border: none;
-    box-shadow: 0 6px 18px rgba(255, 111, 97, 0.4);
-    transition: box-shadow 0.3s ease, transform 0.2s ease;
+    padding: 1rem;
+    border-radius: 15px;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+    width: 140px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
   }
-  .open-btn:hover:not(:disabled) {
-    box-shadow: 0 12px 30px rgba(255, 111, 97, 0.7);
-    transform: translateY(-5px);
+  
+  .series-list button:hover {
+    transform: scale(1.05);
   }
-  .open-btn:disabled {
-    opacity: 0.6;
-    cursor: not-allowed;
+  
+  .series-list img {
+    width: 100px;
+    height: 100px;
+    object-fit: contain;
   }
-  .item-common {
-    background: linear-gradient(135deg, #4caf50, #388e3c);
-    color: white;
+  
+  .open-btn {
+    background-color: #ff4d6d;
+    color: #fff;
+    padding: 1rem 2rem;
+    border: none;
+    border-radius: 10px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: background 0.3s ease;
   }
-  .item-rare {
-    background: linear-gradient(135deg, #2196f3, #1565c0);
-    color: white;
+  
+  .open-btn:hover {
+    background-color: #ff3360;
   }
-  .item-ultrarare {
-    background: linear-gradient(135deg, #fbc02d, #f9a825);
-    color: #222;
+  
+  .result {
+    margin-top: 1rem;
+    font-size: 1.3rem;
+    color: #ff3360;
+    min-height: 150px;
   }
-  @keyframes shake {
-    0%, 100% { transform: translateX(0); }
-    25% { transform: translateX(-5px); }
-    50% { transform: translateX(5px); }
-    75% { transform: translateX(-5px); }
+  
+  .result img {
+    width: 150px;
+    height: 150px;
+    margin-top: 0.5rem;
   }
-  .shake {
-    animation: shake 0.4s ease-in-out infinite;
+  
+  .collected-items {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 1rem 0;
   }
-  .fade-in {
-    animation: fadeIn 0.6s ease forwards;
-    opacity: 0;
+  
+  .collected-items img {
+    width: 100px;
+    height: 100px;
+    border-radius: 12px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
   }
-  @keyframes fadeIn {
-    to { opacity: 1; }
+  
+  footer {
+    padding: 1rem;
+    background: #ffd2dc;
+    color: #ff4d6d;
+    margin-top: 2rem;
+    font-weight: bold;
   }
   
