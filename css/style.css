@@ -1,0 +1,63 @@
+body {
+    background-color: #f8f9fa;
+  }
+  
+  .box-card {
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border-radius: 1rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  }
+  .box-card:hover,
+  .box-card.selected {
+    transform: translateY(-10px);
+    box-shadow: 0 8px 25px rgba(255, 111, 97, 0.5);
+    border: 2.5px solid #ff6f61;
+  }
+  .open-btn {
+    width: 180px;
+    height: 180px;
+    background: url('../assets/images/open-box-icon.png') no-repeat center center;
+    background-size: 90%;
+    border-radius: 1.5rem;
+    border: none;
+    box-shadow: 0 6px 18px rgba(255, 111, 97, 0.4);
+    transition: box-shadow 0.3s ease, transform 0.2s ease;
+  }
+  .open-btn:hover:not(:disabled) {
+    box-shadow: 0 12px 30px rgba(255, 111, 97, 0.7);
+    transform: translateY(-5px);
+  }
+  .open-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+  .item-common {
+    background: linear-gradient(135deg, #4caf50, #388e3c);
+    color: white;
+  }
+  .item-rare {
+    background: linear-gradient(135deg, #2196f3, #1565c0);
+    color: white;
+  }
+  .item-ultrarare {
+    background: linear-gradient(135deg, #fbc02d, #f9a825);
+    color: #222;
+  }
+  @keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-5px); }
+    50% { transform: translateX(5px); }
+    75% { transform: translateX(-5px); }
+  }
+  .shake {
+    animation: shake 0.4s ease-in-out infinite;
+  }
+  .fade-in {
+    animation: fadeIn 0.6s ease forwards;
+    opacity: 0;
+  }
+  @keyframes fadeIn {
+    to { opacity: 1; }
+  }
+  
