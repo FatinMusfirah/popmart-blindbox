@@ -112,26 +112,29 @@ body {
     font-weight: bold;
   }
 
-  /* Rarity colors */
-.rarity-Common { color: #888; }
-.rarity-Rare { color: #007bff; }
-.rarity-Epic { color: #800080; }
-.rarity-Legendary { 
-  color: #ffa500;
-  text-shadow: 0 0 8px #ffa500, 0 0 20px #ffdd55;
-  animation: glow 2s infinite alternate;
-}
-
-.rarity-Legendary { 
+  .rarity-common {
+    color: #888;
+  }
+  .rarity-rare {
+    color: #007bff;
+  }
+  .rarity-epic {
+    color: #800080;
+  }
+  .rarity-legendary {
     color: #ffa500;
     text-shadow: 0 0 8px #ffa500, 0 0 20px #ffdd55;
     animation: glow 2s infinite alternate;
     display: inline-block;
   }
   
-
   @keyframes glow {
-    from { text-shadow: 0 0 8px #ffa500, 0 0 20px #ffdd55; }
-    to { text-shadow: 0 0 20px #ffdd55, 0 0 40px #ffa500; }
-  }  
+    from {
+      text-shadow: 0 0 8px #ffa500, 0 0 20px #ffdd55;
+    }
+    to {
+      text-shadow: 0 0 20px #ffdd55, 0 0 40px #ffa500;
+    }
+  }
+   
   

@@ -35,9 +35,10 @@ const seriesData = {
     // Show result
     box.innerHTML = `
     <p class="text-lg">You got:</p>
-    <p class="text-2xl font-bold rarity-${random.rarity}">${random.name} (${random.rarity})</p>
+    <p class="text-2xl font-bold rarity-${random.rarity.toLowerCase()}">${random.name} (${random.rarity})</p>
     <img class="mx-auto my-4 rounded-xl shadow-md w-40" src="${random.img}" alt="${random.name}" />
     `;
+
 
   
     // Add to collection
