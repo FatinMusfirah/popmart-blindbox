@@ -1,137 +1,59 @@
-// Box data & rarity weights
-const boxes = {
+// app.js
+const seriesData = {
     skullpanda: [
-      { name: "Skullpanda Common", rarity: "Common" },
-      { name: "Skullpanda Rare", rarity: "Rare" },
-      { name: "Skullpanda UltraRare", rarity: "UltraRare" },
+      { name: "Skullpanda Angel", img: "assets/images/skullpanda1.png" },
+      { name: "Skullpanda Devil", img: "assets/images/skullpanda2.png" },
+      { name: "Skullpanda Sleepy", img: "assets/images/skullpanda3.png" },
     ],
     labubu: [
-      { name: "Labubu Common", rarity: "Common" },
-      { name: "Labubu Rare", rarity: "Rare" },
-      { name: "Labubu UltraRare", rarity: "UltraRare" },
-    ],
-    monster: [
-      { name: "Monster Common", rarity: "Common" },
-      { name: "Monster Rare", rarity: "Rare" },
-      { name: "Monster UltraRare", rarity: "UltraRare" },
+      { name: "Labubu Pirate", img: "assets/images/labubu1.png" },
+      { name: "Labubu Astronaut", img: "assets/images/labubu2.png" },
+      { name: "Labubu Chef", img: "assets/images/labubu3.png" },
     ],
   };
   
-  const rarityWeights = { UltraRare: 5, Rare: 25, Common: 70 };
-  
-  let selectedBox = "skullpanda";
+  let currentSeries = "skullpanda";
   let collection = [];
   
-  const boxPicker = document.getElementById("boxPicker");
-  const openButton = document.getElementById("openButton");
-  const resultDiv = document.getElementById("result");
-  const collectionDiv = document.getElementById("collection");
-  
-  const boxImages = {
-    skullpanda: "assets/images/skullpanda.png",
-    labubu: "assets/images/labubu.png",
-    monster: "assets/images/monster.png",
-  };
-  
-  const openSound = new Audio('assets/sounds/open-sound.ogg');
-  
-  function renderBoxes() {
-    boxPicker.innerHTML = "";
-    for (const [key, items] of Object.entries(boxes)) {
-      const col = document.createElement("div");
-      col.className = "col-6 col-sm-4 col-md-2 mb-4";
-  
-      const card = document.createElement("div");
-      card.className = "box-card p-3";
-      card.setAttribute("tabindex", 0);
-      card.setAttribute("role", "button");
-      card.setAttribute("aria-label", `Select ${key.charAt(0).toUpperCase() + key.slice(1)} Box`);
-      card.dataset.box = key;
-  
-      if (key === selectedBox) card.classList.add("selected");
-  
-      const img = document.createElement("img");
-      img.src = boxImages[key];
-      img.alt = `${key} blind box`;
-      img.className = "img-fluid rounded-3 mb-3";
-  
-      const label = document.createElement("p");
-      label.className = "fw-semibold text-dark mb-0";
-      label.textContent = key.charAt(0).toUpperCase() + key.slice(1);
-  
-      card.appendChild(img);
-      card.appendChild(label);
-      col.appendChild(card);
-      boxPicker.appendChild(col);
-  
-      card.addEventListener("click", () => {
-        document.querySelectorAll(".box-card").forEach(c => c.classList.remove("selected"));
-        card.classList.add("selected");
-        selectedBox = key;
-        resultDiv.textContent = `Selected box: ${label.textContent}. Click the open button!`;
-      });
-  
-      card.addEventListener("keydown", (e) => {
-        if (e.key === "Enter" || e.key === " ") {
-          e.preventDefault();
-          card.click();
-        }
-      });
-    }
+  function selectSeries(series) {
+    currentSeries = series;
+    document.getElementById("resultBox").innerHTML = `
+      <p class="text-xl font-bold text-[#ff70a6]">Series selected: ${series.charAt(0).toUpperCase() + series.slice(1)}</p>
+    `;
   }
   
-  function pickRarity() {
-    const roll = Math.random() * 100;
-    if (roll < rarityWeights.UltraRare) return "UltraRare";
-    else if (roll < rarityWeights.UltraRare + rarityWeights.Rare) return "Rare";
-    else return "Common";
+  function openBox() {
+    const box = document.getElementById("resultBox");
+    const sound = document.getElementById("openSound");
+    const items = seriesData[currentSeries];
+    const random = items[Math.floor(Math.random() * items.length)];
+  
+    // Play sound
+    sound.currentTime = 0;
+    sound.play();
+  
+    // Show result
+    box.innerHTML = `
+      <p class="text-lg">You got:</p>
+      <p class="text-2xl font-bold text-pink-500">${random.name}</p>
+      <img class="mx-auto my-4 rounded-xl shadow-md w-40" src="${random.img}" alt="${random.name}" />
+    `;
+  
+    // Add to collection
+    collection.push(random);
+    updateCollection();
   }
   
-  function getRandomCollectible(boxName) {
-    const rarity = pickRarity();
-    const filtered = boxes[boxName].filter(c => c.rarity === rarity);
-    return filtered[Math.floor(Math.random() * filtered.length)];
-  }
-  
-  function renderCollection() {
-    collectionDiv.innerHTML = "";
+  function updateCollection() {
+    const area = document.getElementById("collectionArea");
+    area.innerHTML = "";
     collection.forEach(item => {
-      const col = document.createElement("div");
-      col.className = "col";
-  
-      const card = document.createElement("div");
-      card.className = "p-3 rounded-4 text-center fw-semibold";
-  
-      if (item.rarity === "Common") card.classList.add("item-common");
-      else if (item.rarity === "Rare") card.classList.add("item-rare");
-      else card.classList.add("item-ultrarare");
-  
-      card.textContent = `${item.name} (${item.rarity})`;
-  
-      col.appendChild(card);
-      collectionDiv.appendChild(col);
+      const container = document.createElement("div");
+      container.className = "inline-block text-center mx-2";
+      container.innerHTML = `
+        <img class="h-20 w-20 object-cover rounded-lg shadow" src="${item.img}" alt="${item.name}" />
+        <p class="text-sm mt-1">${item.name}</p>
+      `;
+      area.appendChild(container);
     });
-  }
-  
-  openButton.addEventListener("click", () => {
-    openButton.disabled = true;
-    resultDiv.textContent = "Opening...";
-    openButton.classList.add("shake");
-    openSound.play();
-  
-    setTimeout(() => {
-      const prize = getRandomCollectible(selectedBox);
-      resultDiv.textContent = `You got: ${prize.name} (${prize.rarity})!`;
-      resultDiv.classList.remove("fade-in");
-      void resultDiv.offsetWidth;
-      resultDiv.classList.add("fade-in");
-  
-      collection.push(prize);
-      renderCollection();
-      openButton.disabled = false;
-      openButton.classList.remove("shake");
-    }, 2000);
-  });
-  
-  renderBoxes();
-  
+  }  
