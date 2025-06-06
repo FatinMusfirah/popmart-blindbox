@@ -1,4 +1,3 @@
-// app.js
 const seriesData = {
     skullpanda: [
       { name: "Skullpanda Angel", img: "assets/images/skullpanda1.png", rarity: "Common" },
@@ -15,11 +14,18 @@ const seriesData = {
   let currentSeries = "skullpanda";
   let collection = [];
   
-  function selectSeries(series) {
-    currentSeries = series;
-    document.getElementById("resultBox").innerHTML = `
-      <p class="text-xl font-bold text-[#ff70a6]">Series selected: ${series.charAt(0).toUpperCase() + series.slice(1)}</p>
-    `;
+  function selectSeries(seriesName) {
+    currentSeries = seriesName;
+  
+    const buttons = document.querySelectorAll('.series-list button');
+    buttons.forEach(btn => {
+      btn.classList.remove('selected');
+      if (btn.dataset.series === seriesName) {
+        btn.classList.add('selected');
+      }
+    });
+  
+    document.getElementById("resultBox").innerHTML = '';
   }
   
   function openBox() {
@@ -28,22 +34,32 @@ const seriesData = {
     const items = seriesData[currentSeries];
     const random = items[Math.floor(Math.random() * items.length)];
   
-    // Play sound
     sound.currentTime = 0;
     sound.play();
   
-    // Show result
     box.innerHTML = `
-    <p class="text-lg">You got:</p>
-    <p class="text-2xl font-bold rarity-${random.rarity.toLowerCase()}">${random.name} (${random.rarity})</p>
-    <img class="mx-auto my-4 rounded-xl shadow-md w-40" src="${random.img}" alt="${random.name}" />
+      <p class="text-lg">You got:</p>
+      <p class="text-2xl font-bold rarity-${random.rarity.toLowerCase()}">${random.name} (${random.rarity})</p>
+      <img class="animate rarity-${random.rarity}" src="${random.img}" alt="${random.name}" />
     `;
-
-
   
-    // Add to collection
-    collection.push(random);
+    setTimeout(() => {
+      const img = document.getElementById("revealedItem");
+      if (img) img.classList.add("animate");
+    }, 50);
+  
+    addToCollection(random);
     updateCollection();
+    saveCollection();
+  }
+  
+  function addToCollection(item) {
+    const existing = collection.find(i => i.name === item.name);
+    if (existing) {
+      existing.quantity += 1;
+    } else {
+      collection.push({ ...item, quantity: 1 });
+    }
   }
   
   function updateCollection() {
@@ -51,11 +67,47 @@ const seriesData = {
     area.innerHTML = "";
     collection.forEach(item => {
       const container = document.createElement("div");
-      container.className = "inline-block text-center mx-2";
+      container.className = "inline-block text-center mx-2 relative";
+  
       container.innerHTML = `
-        <img class="h-20 w-20 object-cover rounded-lg shadow" src="${item.img}" alt="${item.name}" />
+        <div class="relative">
+          <img class="h-20 w-20 object-cover rounded-lg shadow" src="${item.img}" alt="${item.name}" />
+          ${item.quantity > 1 ? `<div class="absolute bottom-0 right-0 bg-black text-white text-xs px-1 rounded-full">x${item.quantity}</div>` : ''}
+        </div>
         <p class="text-sm mt-1">${item.name}</p>
       `;
+  
       area.appendChild(container);
     });
-  }  
+    updateCollectionCount();
+  }
+  
+  function saveCollection() {
+    localStorage.setItem('popmartCollection', JSON.stringify(collection));
+  }
+  
+  function loadCollection() {
+    const saved = localStorage.getItem('popmartCollection');
+    if (saved) {
+      collection = JSON.parse(saved);
+      updateCollection();
+    }
+  }
+  
+  function updateCollectionCount() {
+    const countEl = document.getElementById("collectionCount");
+    const total = collection.reduce((sum, item) => sum + item.quantity, 0);
+    countEl.textContent = `Total items collected: ${total}`;
+  }
+  
+  window.onload = function () {
+    loadCollection();
+  }
+  
+  document.getElementById("clearCollectionBtn").addEventListener("click", () => {
+    collection = [];
+    updateCollection();
+    saveCollection();
+    document.getElementById("resultBox").innerHTML = "";
+  });
+  

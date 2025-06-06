@@ -16,14 +16,14 @@
   <section class="box-selection">
     <h2>Select a Blind Box Series</h2>
     <div class="series-list">
-      <button onclick="selectSeries('skullpanda')">
+      <button onclick="selectSeries('skullpanda')" data-series="skullpanda">
         <img src="assets/images/skullpanda.png" alt="Skullpanda" />
         <span>Skullpanda</span>
       </button>
-      <button onclick="selectSeries('labubu')">
+      <button onclick="selectSeries('labubu')" data-series="labubu">
         <img src="assets/images/labubu.png" alt="Labubu" />
         <span>Labubu</span>
-      </button>
+      </button>      
     </div>
   </section>
 
@@ -36,8 +36,11 @@
 
   <section class="collection">
     <h2>Your Collection</h2>
+    <button id="clearCollectionBtn">Clear Collection</button>
+    <p id="collectionCount"></p>
     <div class="collected-items" id="collectionArea"></div>
   </section>
+  
 
   <footer>
     <p>Made with 💖 for Popmart fans</p>

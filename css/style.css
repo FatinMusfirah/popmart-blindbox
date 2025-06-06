@@ -50,6 +50,16 @@ body {
     width: 140px;
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
   }
+
+  /* Add this after .series-list button styles */
+
+.series-list button.selected {
+    border: 3px solid #ff4d6d;
+    box-shadow: 0 0 12px rgba(255, 77, 109, 0.6);
+    background: #fff0f5;
+    transform: scale(1.08);
+  }
+  
   
   .series-list button:hover {
     transform: scale(1.05);
@@ -127,7 +137,7 @@ body {
     animation: glow 2s infinite alternate;
     display: inline-block;
   }
-  
+
   @keyframes glow {
     from {
       text-shadow: 0 0 8px #ffa500, 0 0 20px #ffdd55;
@@ -136,5 +146,69 @@ body {
       text-shadow: 0 0 20px #ffdd55, 0 0 40px #ffa500;
     }
   }
-   
+
+  @keyframes boxReveal {
+    0% {
+      transform: scale(1) rotate(0deg);
+      opacity: 0.5;
+    }
+    50% {
+      transform: scale(1.2) rotate(5deg);
+      opacity: 1;
+    }
+    100% {
+      transform: scale(1) rotate(0deg);
+      opacity: 1;
+    }
+  }
+  
+  .result img.animate {
+    animation: boxReveal 0.8s ease-out;
+  }
+
+  /* Subtle glows based on rarity */
+.rarity-Common {
+    box-shadow: 0 0 30px rgb(77, 71, 71);
+  }
+  
+  .rarity-Rare {
+    box-shadow: 0 0 30px rgba(72, 127, 255, 0.938);
+  }
+  
+  .rarity-Epic {
+    box-shadow: 0 0 30px #800080;
+  }
+  
+  .rarity-Legendary {
+    box-shadow: 0 0 30px rgba(255, 208, 0, 0.934);
+  }
+  img.rarity-Common,
+  img.rarity-Rare,
+  img.rarity-Epic,
+  img.rarity-Legendary {
+    transition: box-shadow 0.3s ease;
+  }
+    
+  #clearCollectionBtn {
+    background-color: #ff3360;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 0.5rem 1.2rem;
+    cursor: pointer;
+    margin-bottom: 1rem;
+    font-weight: 600;
+    transition: background-color 0.3s ease;
+  }
+  
+  #clearCollectionBtn:hover {
+    background-color: #cc2a50;
+  }
+  
+  #collectionCount {
+    margin-top: 1rem;
+    font-weight: 700;
+    color: #ff4d6d;
+  }
+  
   
