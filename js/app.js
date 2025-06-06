@@ -1,14 +1,14 @@
 // app.js
 const seriesData = {
     skullpanda: [
-      { name: "Skullpanda Angel", img: "assets/images/skullpanda1.png" },
-      { name: "Skullpanda Devil", img: "assets/images/skullpanda2.png" },
-      { name: "Skullpanda Sleepy", img: "assets/images/skullpanda3.png" },
+      { name: "Skullpanda Angel", img: "assets/images/skullpanda1.png", rarity: "Common" },
+      { name: "Skullpanda Devil", img: "assets/images/skullpanda2.png", rarity: "Rare" },
+      { name: "Skullpanda Sleepy", img: "assets/images/skullpanda3.png", rarity: "Epic" },
     ],
     labubu: [
-      { name: "Labubu Pirate", img: "assets/images/labubu1.png" },
-      { name: "Labubu Astronaut", img: "assets/images/labubu2.png" },
-      { name: "Labubu Chef", img: "assets/images/labubu3.png" },
+      { name: "Labubu Pirate", img: "assets/images/labubu1.png", rarity: "Common" },
+      { name: "Labubu Astronaut", img: "assets/images/labubu2.png", rarity: "Rare" },
+      { name: "Labubu Chef", img: "assets/images/labubu3.png", rarity: "Legendary" },
     ],
   };
   
